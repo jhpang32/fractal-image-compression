@@ -147,16 +147,14 @@ if __name__ == '__main__':
     RX = 4
     DX = 8
     Delta = 8
-    str_image = './image/BABOO.bmp'
-    str_image1 = './decode/BABOO-fractal.bmp'
+    str_image = './image/Lena.bmp'
+    str_image1 = './decode/Lena-fractal.bmp'
     image = cv.imread(str_image, 0)
     R_index, D_index = image_parameter(image, RX, Delta)
     Omega = codebook(image, RX, DX, Delta, D_index)   # 构成码本
     Code = code_ing(image, Omega, RX, R_index, D_index)
     # 打印时间
-    time_end = time.time()
-    run_time = time_end - time_star
-    print(f'运行时间：{run_time} s')
+    print(f'运行时间：{time.time() - time_star} s')
     np.save('./code/code484.npy', Code)
     code_read = np.load('./code/code484.npy')
     Decode = decode(code_read, 5, image.shape, RX, DX, Delta, R_index, D_index)
