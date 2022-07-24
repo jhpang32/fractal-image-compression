@@ -147,8 +147,8 @@ if __name__ == '__main__':
     RX = 4
     DX = 8
     Delta = 8
-    str_image = './image/Lena.bmp'
-    str_image1 = './decode/Lena-fractal.bmp'
+    str_image = './image/onion.bmp'
+    str_image1 = './decode/onion-fractal.bmp'
     image = cv.imread(str_image, 0)
     R_index, D_index = image_parameter(image, RX, Delta)
     Omega = codebook(image, RX, DX, Delta, D_index)   # 构成码本
@@ -159,8 +159,7 @@ if __name__ == '__main__':
     code_read = np.load('./code/code484.npy')
     Decode = decode(code_read, 5, image.shape, RX, DX, Delta, R_index, D_index)
     ps = ps_nr(image, Decode)
-    print('峰值信噪比： ')
-    print(ps)
+    print(f'峰值信噪比：{ps} dB')
     cv.imwrite(str_image1, Decode)
     cv.imshow(str_image, image)
     cv.imshow(str_image1, cv.imread(str_image1))
