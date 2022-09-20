@@ -162,12 +162,12 @@ def main(image_name, r_block=4, d_block=8, delta_size=8, iteration=6, debug_mode
     code = encoder(image, omega, rx, r_index, d_index)
     # 打印时间
     run_time = time.time() - time_star
-    print(f'运行时间：{run_time} s')
+    print(f'运行时间：{run_time:.3f} s')
     # 后面还可以针对这个文件内的分形码进行量化，比如s采用7bit量化， 等距变换的编号3bit，o 8bit
     if debug_mode:
         decode_image = decoder(code, iteration, image.shape, rx, dx, delta, r_index, d_index)
         ps = ps_nr(image, decode_image)
-        print(f'峰值信噪比：{ps}')
+        print(f'峰值信噪比：{ps:.3f} dB')
         cv.imshow(image_name, image)
         decode_image = decode_image.astype(np.uint8)  # 必须换成uint8才可以显示
         cv.imshow('decode', decode_image[:])
@@ -182,7 +182,7 @@ def main(image_name, r_block=4, d_block=8, delta_size=8, iteration=6, debug_mode
         decode_image_dir = '{dir}{name}-R{rx}-D{dx}-Time{time:.2f}-PSNR{psnr:.2f}-Iteration{iteration}{pic_format}' \
             .format(name=image_name, dir='./decode/', pic_format=picture_format,
                     rx=rx, dx=dx, time=run_time, psnr=ps, iteration=iteration)
-        print(f'峰值信噪比：{ps}')
+        print(f'峰值信噪比：{ps:.3f} dB')
         cv.imwrite(decode_image_dir, decode_image)
         cv.imshow(image_dir, image)
         cv.imshow(decode_image_dir, cv.imread(decode_image_dir, cv.IMREAD_GRAYSCALE))
@@ -193,4 +193,4 @@ def main(image_name, r_block=4, d_block=8, delta_size=8, iteration=6, debug_mode
 
 # 原图像的路径./image/*.bmp，解码图像路径./decode/*.bmp，保存的文件./code/*.npy（其内的路径和文件名可修改）
 if __name__ == '__main__':
-    main('Lena', 4, 8, 8)  # 传入图片的名字，更多参数介绍请看main()
+    main('Lena', 8, 16, 16)  # 传入图片的名字，更多参数介绍请看main()
