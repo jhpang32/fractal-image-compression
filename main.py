@@ -59,6 +59,7 @@ def encoder(img, code_book, rx, ri_index, di_index):
     d_idx = np.arange(di_index[2])
     d_idx.shape = (di_index[0], di_index[1])
     pbar = tqdm(total=ri_index[2])
+    pbar.set_description('压缩进度')
     for r_y_idx in range(ri_index[0]):
         for r_x_idx in range(ri_index[1]):
             ri = img[r_y_idx * rx:r_y_idx * rx + rx, r_x_idx * rx:r_x_idx * rx + rx]
